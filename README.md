@@ -1,4 +1,4 @@
-🚀 Automation + API Testing Project
+# 🚀 Automation + API Testing Project
 (Selenium TestNG + Postman API Testing)
 
 This repository contains solutions for the QA Machine Test consisting of:
@@ -115,4 +115,4 @@ Variables, Environment, Authorization
 GET/POST requests
 
 JSON validation
----
+
