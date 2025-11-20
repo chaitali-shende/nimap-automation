@@ -3,9 +3,13 @@
 
 This repository contains solutions for the QA Machine Test consisting of:
 
+
 ✔ Web Automation using Selenium WebDriver + Java + TestNG + Maven
+
 ✔ API Testing using Postman
+
 ✔ Manual + Automation tasks combined into a single project
+
 ✔ Parameterization, validation, toast verification, customer creation, and environment setup
 
 ---
@@ -78,9 +82,9 @@ Automation-Project/
  
  ├── postman/
  
- │   ├── FFC_Postman_Environment.json
+ │   ├── Environment.json
  
- │   └── FFC_API_Collection.json
+ │   └── Collection.json
  
  ├── pom.xml
  
