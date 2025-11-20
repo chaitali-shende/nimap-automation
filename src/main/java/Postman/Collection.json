@@ -1,0 +1,105 @@
+{
+  "info": {
+    "name": "FFC_API_Testing",
+    "_postman_id": "ffc-collection-001",
+    "description": "Postman API Testing for Login & Add Customer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login - Valid Credentials",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// Save token from response",
+              "var json = pm.response.json();",
+              "if(json.token){",
+              "    pm.environment.set(\"token\", json.token);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userid\": \"{{userid}}\",\n  \"password\": \"{{password}}\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Login - Invalid Credentials",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/api/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userid\": \"9999999999\",\n  \"password\": \"wrongpass\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validate invalid login response\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([400,401]);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Add Customer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Customer added successfully\", function(){",
+              "    pm.expect(pm.response.code).to.equal(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/add-customer",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Test\",\n  \"phone\": \"9876543210\",\n  \"address\": \"Mumbai\",\n  \"gst\": \"GSTIN12345\"\n}"
+        }
+      }
+    }
+  ]
+}
